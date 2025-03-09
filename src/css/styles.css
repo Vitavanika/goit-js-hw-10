@@ -251,3 +251,8 @@ input[type=radio] {
     font-weight: 500;
     color: #fff;
 }
+
+input[type=radio]:checked {
+    border-color: #4e75ff;
+    background: #4e75ff;
+}
