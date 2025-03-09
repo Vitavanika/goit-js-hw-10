@@ -5,47 +5,49 @@ import iconWarning from '../img/warning.svg';
 import 'flatpickr/dist/flatpickr.min.css';
 import 'izitoast/dist/css/iziToast.min.css';
 
-const startBtn = document.querySelector('[data-start]');
-const inputEl = document.querySelector('#datetime-picker');
-const dataDaysEl = document.querySelector('[data-days]');
-const dataHoursEl = document.querySelector('[data-hours]');
-const dataMinutesEl = document.querySelector('[data-minutes]');
-const dataSecondsEl = document.querySelector('[data-seconds]');
+const refs = {
+  startBtn: document.querySelector('[data-start]'),
+  inputEl: document.querySelector('#datetime-picker'),
+  dataDaysEl: document.querySelector('[data-days]'),
+  dataHoursEl: document.querySelector('[data-hours]'),
+  dataMinutesEl: document.querySelector('[data-minutes]'),
+  dataSecondsEl: document.querySelector('[data-seconds]'),
+};
 let userSelectedDate = '';
 let intervalId = null;
-startBtn.disabled = true;
+refs.startBtn.disabled = true;
 
 const msgOk = {
   title: 'OK',
+  titleColor: '#fff',
   message: 'Timer started!',
+  messageColor: '#fff',
+  backgroundColor: '#59a10d',
   iconUrl: iconOk,
   iconColor: '#fff',
-  titleColor: '#fff',
-  backgroundColor: '#59a10d',
-  messageColor: '#fff',
   position: 'topRight',
   timeout: 3000,
 };
 
 const msgWarning = {
   title: 'Error',
-  message: 'Please choose a date in the future',
-  backgroundColor: '#ef4040',
-  iconColor: '#fff',
   titleColor: '#fff',
+  message: 'Please choose a date in the future',
   messageColor: '#fff',
-  position: 'topRight',
+  backgroundColor: '#ef4040',
   iconUrl: iconWarning,
+  iconColor: '#fff',
+  position: 'topRight',
 };
 
 const msgFinish = {
   title: 'Done',
+  titleColor: '#fff',
   message: 'Countdown finished!',
+  messageColor: '#fff',
+  backgroundColor: '#59a10d',
   iconUrl: iconOk,
   iconColor: '#fff',
-  titleColor: '#fff',
-  backgroundColor: '#59a10d',
-  messageColor: '#fff',
   position: 'topRight',
   timeout: 3000,
 };
@@ -64,7 +66,7 @@ const options = {
         return;
       }
       userSelectedDate = selectedDate;
-      startBtn.disabled = false;
+      refs.startBtn.disabled = false;
       if (intervalId) {
         clearInterval(intervalId);
         intervalId = null;
@@ -74,26 +76,26 @@ const options = {
 };
 
 function startTimer() {
-  startBtn.disabled = true;
-  inputEl.disabled = true;
+  refs.startBtn.disabled = true;
+  refs.inputEl.disabled = true;
 
   iziToast.success(msgOk);
 
   intervalId = setInterval(() => {
     const countTime = userSelectedDate - Date.now();
     if (countTime <= 0) {
+      iziToast.success(msgFinish);
       clearInterval(intervalId);
       intervalId = null;
-      iziToast.success(msgFinish);
-      inputEl.disabled = false;
+      refs.inputEl.disabled = false;
       return;
     }
 
     const { days, hours, minutes, seconds } = convertMs(countTime);
-    dataDaysEl.textContent = String(days).padStart(2, '0');
-    dataHoursEl.textContent = String(hours).padStart(2, '0');
-    dataMinutesEl.textContent = String(minutes).padStart(2, '0');
-    dataSecondsEl.textContent = String(seconds).padStart(2, '0');
+    refs.dataDaysEl.textContent = String(days).padStart(2, '0');
+    refs.dataHoursEl.textContent = String(hours).padStart(2, '0');
+    refs.dataMinutesEl.textContent = String(minutes).padStart(2, '0');
+    refs.dataSecondsEl.textContent = String(seconds).padStart(2, '0');
   }, 1000);
 }
 
@@ -111,5 +113,5 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-startBtn.addEventListener('click', startTimer);
-flatpickr(inputEl, options);
+refs.startBtn.addEventListener('click', startTimer);
+flatpickr(refs.inputEl, options);
