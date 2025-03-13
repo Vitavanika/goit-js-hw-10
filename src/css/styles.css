@@ -1,3 +1,6 @@
+@import 'izitoast/dist/css/iziToast.min.css';
+
+
 /* #region commom  */
 body {
     margin: 0;
@@ -65,6 +68,11 @@ button:hover {
     background: rgba(255, 255, 255, 0.4);
 }
 
+.iziToast>button.iziToast-close {
+    background: url("../img/close.svg") no-repeat 50% 50%;
+    background-size: 12px;
+}
+
 /* #endregion commom */
 
 /* #region tasks */
@@ -89,7 +97,6 @@ button:hover {
 }
 
 /* #endregion tasks */
-
 
 /* #region timer */
 .container {
@@ -149,7 +156,7 @@ button:hover {
 
 /* #endregion timer */
 
-/* region calendar */
+/* #region calendar */
 #datetime-picker {
     width: 280px;
 }
@@ -176,9 +183,9 @@ button:hover {
     border-color: #4e75ff !important;
 }
 
-/* endregion calendar */
+/* #endregion calendar */
 
-/* region snackbar */
+/* #region snackbar */
 .form1 {
     display: flex;
     flex-direction: column;
@@ -256,3 +263,5 @@ input[type=radio]:checked {
     border-color: #4e75ff;
     background: #4e75ff;
 }
+
+/* #endregion snackbar */
